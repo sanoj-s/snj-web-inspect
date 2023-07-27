@@ -1,4 +1,4 @@
-package com.test.ui;
+package com.snj.ui;
 
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -22,9 +22,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import com.test.ai.LocatorsPattern;
-import com.test.ai.LocatorsStorage;
-import com.test.utils.Utilities;
+import com.snj.ai.LocatorsPattern;
+import com.snj.ai.LocatorsStorage;
+import com.snj.utils.Utilities;
 
 public class ScanLocator implements ActionListener {
 	static WebDriver driver;

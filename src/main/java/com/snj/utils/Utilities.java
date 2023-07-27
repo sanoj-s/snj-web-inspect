@@ -1,4 +1,4 @@
-package com.test.utils;
+package com.snj.utils;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

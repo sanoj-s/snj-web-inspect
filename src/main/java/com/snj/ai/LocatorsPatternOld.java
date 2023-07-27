@@ -1,4 +1,4 @@
-package com.test.ai;
+package com.snj.ai;
 
 import java.io.File;
 import java.io.FileInputStream;

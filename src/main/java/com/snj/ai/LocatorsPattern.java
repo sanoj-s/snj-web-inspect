@@ -1,4 +1,4 @@
-package com.test.ai;
+package com.snj.ai;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,7 +15,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
-import com.test.utils.Utilities;
+import com.snj.utils.Utilities;
 
 public class LocatorsPattern {
 

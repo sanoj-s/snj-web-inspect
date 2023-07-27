@@ -1,4 +1,4 @@
-package com.test.ai;
+package com.snj.ai;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
