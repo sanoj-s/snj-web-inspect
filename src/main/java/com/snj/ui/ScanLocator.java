@@ -128,6 +128,8 @@ public class ScanLocator implements ActionListener {
 						Elements textareaTag = document.getElementsByTag("textarea");
 						Elements optionTag = document.getElementsByTag("select");
 						Elements aTag = document.getElementsByTag("a");
+						Elements labelTags = document.getElementsByTag("label");
+						Elements tableTags = document.getElementsByTag("table");
 						try {
 							repoSitoryFilePath = Utilities.copyRepositoryTemplate(repositoryName);
 							LocatorsStorage.trackObjectLocators(repoSitoryFilePath, "" + inputTag, "InputLocators",
@@ -138,7 +140,9 @@ public class ScanLocator implements ActionListener {
 									"TextareaLocators", "textarea");
 							LocatorsStorage.trackObjectLocators(repoSitoryFilePath, "" + optionTag, "DropDownLocators",
 									"select");
-							LocatorsStorage.trackATagLocators(repoSitoryFilePath, aTag, "LinkLocators", "a");
+							LocatorsStorage.trackATagLocators(repoSitoryFilePath, aTag, "LinkLocators");
+							LocatorsStorage.trackLabelTagLocators(repoSitoryFilePath, labelTags, "LabelLocators");
+							LocatorsStorage.trackTableTagLocators(repoSitoryFilePath, tableTags, "TableLocators");
 						} catch (EncryptedDocumentException | IOException exec) {
 							exec.printStackTrace();
 						}
@@ -149,9 +153,10 @@ public class ScanLocator implements ActionListener {
 							LocatorsPattern.createSelectTagXpathObjects(repoSitoryFilePath, repositoryName);
 							LocatorsPattern.createButtonTagXpathObjects(repoSitoryFilePath, repositoryName);
 							LocatorsPattern.createATagXpathObjects(repoSitoryFilePath, repositoryName);
+							LocatorsPattern.createLabelTagXpathObjects(repoSitoryFilePath, repositoryName);
+							LocatorsPattern.createTableTagXpathObjects(repoSitoryFilePath, repositoryName);
 						} catch (Exception exec) {
 						}
-
 						JOptionPane.showMessageDialog((JButton) e.getSource(),
 								"Locators are captured and stored successfully");
 					}

@@ -358,4 +358,108 @@ public class LocatorsPattern {
 		}
 		return seleniumLocator;
 	}
+
+	/**
+	 * Method to write the 'label' tag related locators into the object repository
+	 * class
+	 * 
+	 * @author sanoj.swaminathan
+	 * @since 28-07-2023
+	 * @param repoSitoryFilePath
+	 * @param repositoryName
+	 * @return
+	 * @throws Exception
+	 */
+	public static String createLabelTagXpathObjects(String repoSitoryFilePath, String repositoryName) throws Exception {
+		setExcelFile(repoSitoryFilePath, "LabelLocators");
+		String objectName = null;
+		for (int i = 1; i <= 1000; i++) {
+
+			// Attribute matching and get the object and object name
+			if (!getCellData("Loc1", i).equals("") || !getCellData("Loc2", i).equals("")) {
+				String extractedText;
+				if (getCellData("Loc1", i).equals("") && !getCellData("Loc2", i).equals("")) {
+					seleniumLocator = "//label[@" + getCellData("Loc2", i) + "]";
+					String[] parts = getCellData("Loc2", i).split("=");
+					extractedText = parts[1].replaceAll("[^a-zA-Z0-9]", "");
+				} else if (!getCellData("Loc1", i).equals("") && getCellData("Loc2", i).equals("")) {
+					seleniumLocator = "//label[text()='" + getCellData("Loc1", i) + "']";
+					extractedText = getCellData("Loc1", i).replaceAll("[^a-zA-Z0-9]", "");
+				} else {
+					seleniumLocator = "//label[text()='" + getCellData("Loc1", i) + "' or @" + getCellData("Loc2", i)
+							+ "]";
+					extractedText = getCellData("Loc1", i).replaceAll("[^a-zA-Z0-9]", "");
+				}
+
+				String firstLetter = extractedText.substring(0, 1).toLowerCase();
+				String restOfString = extractedText.substring(1);
+				String finalText = firstLetter + restOfString;
+				objectName = finalText;
+
+				Utilities.createJavaFile(repositoryName, "lbl_" + objectName, seleniumLocator);
+			}
+		}
+		return seleniumLocator;
+	}
+
+	/**
+	 * Method to write the 'table' tag related locators into the object repository
+	 * class
+	 * 
+	 * @author sanoj.swamianthan
+	 * @since 28-07-2023
+	 * @param repoSitoryFilePath
+	 * @param repositoryName
+	 * @return
+	 * @throws Exception
+	 */
+	public static String createTableTagXpathObjects(String repoSitoryFilePath, String repositoryName) throws Exception {
+
+		setExcelFile(repoSitoryFilePath, "TableLocators");
+		String objectName = null;
+		for (int i = 1; i <= 1000; i++) {
+
+			// Attribute matching and get the object and object name
+			if (!getCellData("Loc1", i).equals("") || !getCellData("Loc2", i).equals("")
+					|| !getCellData("Loc3", i).equals("")) {
+				String tableHeading, tableCellData, extractedText;
+
+				if (getCellData("Loc1", i).equals("") && !getCellData("Loc2", i).equals("")
+						&& !getCellData("Loc3", i).equals("")) {
+					seleniumLocator = "//table//tr//th[text()='" + getCellData("Loc2", i)
+							+ "']//..//..//following-sibling::td[text()='" + getCellData("Loc3", i) + "']";
+					tableHeading = getCellData("Loc2", i).replaceAll("[^a-zA-Z0-9]", "");
+					tableCellData = getCellData("Loc3", i).replaceAll("[^a-zA-Z0-9]", "");
+					extractedText = tableHeading + "_" + tableCellData;
+				} else if (!getCellData("Loc1", i).equals("") && getCellData("Loc2", i).equals("")
+						&& !getCellData("Loc3", i).equals("")) {
+					seleniumLocator = "//table[@class='" + getCellData("Loc1", i)
+							+ "']//tr//..//..//following-sibling::td[text()='" + getCellData("Loc3", i) + "']";
+					tableCellData = getCellData("Loc3", i).replaceAll("[^a-zA-Z0-9]", "");
+					extractedText = tableCellData;
+				} else if (getCellData("Loc1", i).equals("") && getCellData("Loc2", i).equals("")
+						&& !getCellData("Loc3", i).equals("")) {
+					seleniumLocator = "//table//tr//..//..//following-sibling::td[text()='" + getCellData("Loc3", i)
+							+ "']";
+					tableCellData = getCellData("Loc3", i).replaceAll("[^a-zA-Z0-9]", "");
+					extractedText = tableCellData;
+				} else {
+					seleniumLocator = "//table[@class='" + getCellData("Loc1", i) + "']//tr//th[text()='"
+							+ getCellData("Loc2", i) + "']//..//..//following-sibling::td[text()='"
+							+ getCellData("Loc3", i) + "']";
+					tableHeading = getCellData("Loc2", i).replaceAll("[^a-zA-Z0-9]", "");
+					tableCellData = getCellData("Loc3", i).replaceAll("[^a-zA-Z0-9]", "");
+					extractedText = tableHeading + "_" + tableCellData;
+				}
+
+				String firstLetter = extractedText.substring(0, 1).toLowerCase();
+				String restOfString = extractedText.substring(1);
+				String finalText = firstLetter + restOfString;
+				objectName = finalText;
+
+				Utilities.createJavaFile(repositoryName, "tbl_" + objectName, seleniumLocator);
+			}
+		}
+		return seleniumLocator;
+	}
 }
