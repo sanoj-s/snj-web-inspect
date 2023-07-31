@@ -1,4 +1,4 @@
-package com.snj.ai;
+package com.snj.inspect;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,8 +14,6 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
-
-import com.snj.utils.Utilities;
 
 public class LocatorsPattern {
 
@@ -159,7 +157,7 @@ public class LocatorsPattern {
 					if (objectName == null) {
 						objectName = "txt_objectName" + i;
 					}
-					Utilities.createJavaFile(repositoryName, objectName, seleniumLocator);
+					WebInspectUtilities.createJavaFile(repositoryName, objectName, seleniumLocator);
 				}
 			}
 		}
@@ -204,7 +202,7 @@ public class LocatorsPattern {
 					if (objectName == null) {
 						objectName = "txa_objectName" + i;
 					}
-					Utilities.createJavaFile(repositoryName, "txa_" + objectName, seleniumLocator);
+					WebInspectUtilities.createJavaFile(repositoryName, "txa_" + objectName, seleniumLocator);
 				}
 			}
 		}
@@ -249,7 +247,7 @@ public class LocatorsPattern {
 					if (objectName == null) {
 						objectName = "ddl_objectName" + i;
 					}
-					Utilities.createJavaFile(repositoryName, "ddl_" + objectName, seleniumLocator);
+					WebInspectUtilities.createJavaFile(repositoryName, "ddl_" + objectName, seleniumLocator);
 				}
 			}
 		}
@@ -293,7 +291,7 @@ public class LocatorsPattern {
 					if (objectName == null) {
 						objectName = "btn_objectName" + i;
 					}
-					Utilities.createJavaFile(repositoryName, "btn_" + objectName, seleniumLocator);
+					WebInspectUtilities.createJavaFile(repositoryName, "btn_" + objectName, seleniumLocator);
 				}
 			}
 		}
@@ -353,7 +351,7 @@ public class LocatorsPattern {
 				String finalText = firstLetter + restOfString;
 				objectName = finalText;
 
-				Utilities.createJavaFile(repositoryName, "lnk_" + objectName, seleniumLocator);
+				WebInspectUtilities.createJavaFile(repositoryName, "lnk_" + objectName, seleniumLocator);
 			}
 		}
 		return seleniumLocator;
@@ -396,7 +394,7 @@ public class LocatorsPattern {
 				String finalText = firstLetter + restOfString;
 				objectName = finalText;
 
-				Utilities.createJavaFile(repositoryName, "lbl_" + objectName, seleniumLocator);
+				WebInspectUtilities.createJavaFile(repositoryName, "lbl_" + objectName, seleniumLocator);
 			}
 		}
 		return seleniumLocator;
@@ -457,7 +455,7 @@ public class LocatorsPattern {
 				String finalText = firstLetter + restOfString;
 				objectName = finalText;
 
-				Utilities.createJavaFile(repositoryName, "tbl_" + objectName, seleniumLocator);
+				WebInspectUtilities.createJavaFile(repositoryName, "tbl_" + objectName, seleniumLocator);
 			}
 		}
 		return seleniumLocator;
@@ -490,7 +488,7 @@ public class LocatorsPattern {
 				String finalText = firstLetter + restOfString;
 				objectName = finalText;
 
-				Utilities.createJavaFile(repositoryName, "img_" + objectName, seleniumLocator);
+				WebInspectUtilities.createJavaFile(repositoryName, "img_" + objectName, seleniumLocator);
 			}
 		}
 		return seleniumLocator;
@@ -524,7 +522,7 @@ public class LocatorsPattern {
 				String finalText = firstLetter + restOfString;
 				objectName = finalText;
 
-				Utilities.createJavaFile(repositoryName, "lbl_" + objectName, seleniumLocator);
+				WebInspectUtilities.createJavaFile(repositoryName, "lbl_" + objectName, seleniumLocator);
 			}
 		}
 		return seleniumLocator;

@@ -1,4 +1,4 @@
-package com.snj.utils;
+package com.snj.inspect;
 
 import java.io.FileOutputStream;
 import java.io.IOException;

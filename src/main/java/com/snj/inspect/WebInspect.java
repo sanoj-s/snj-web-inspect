@@ -1,4 +1,4 @@
-package com.snj.ui;
+package com.snj.inspect;
 
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -21,10 +21,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-
-import com.snj.ai.LocatorsPattern;
-import com.snj.ai.LocatorsStorage;
-import com.snj.utils.Utilities;
 
 public class WebInspect implements ActionListener {
 	static WebDriver driver;
@@ -139,7 +135,7 @@ public class WebInspect implements ActionListener {
 						Elements imageTags = document.getElementsByTag("img");
 						Elements headingTags = document.select("h1, h2, h3, h4");
 						try {
-							repoSitoryFilePath = Utilities.copyRepositoryTemplate(repositoryName);
+							repoSitoryFilePath = WebInspectUtilities.copyRepositoryTemplate(repositoryName);
 							LocatorsStorage.trackObjectLocators(repoSitoryFilePath, "" + inputTag, "InputLocators",
 									"input");
 							LocatorsStorage.trackObjectLocators(repoSitoryFilePath, "" + buttonTag, "ButtonLocators",
@@ -175,11 +171,6 @@ public class WebInspect implements ActionListener {
 				}
 			}
 		});
-	}
-
-	// Entry point
-	public static void main(String[] args) {
-		scanObjectLocators();
 	}
 
 	@Override

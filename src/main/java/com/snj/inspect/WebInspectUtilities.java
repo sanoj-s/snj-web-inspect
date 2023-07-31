@@ -1,4 +1,4 @@
-package com.snj.utils;
+package com.snj.inspect;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -11,7 +11,7 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Utilities {
+public class WebInspectUtilities {
 	/**
 	 * Method to create a copy of repository template and store to the Repositories
 	 * folder inside src/test/resources
@@ -24,7 +24,7 @@ public class Utilities {
 	public static String copyRepositoryTemplate(String repositoryName) {
 		Path destinationPath = null;
 		try {
-			Path sourcePath = Path.of("src/main/resources/Template/Template.xlsx");
+			Path sourcePath = Path.of("src/main/resources/Web_Inspect_Template/Template.xlsx");
 			byte[] fileContent = Files.readAllBytes(sourcePath);
 
 			File resourcesDirectory = new File("src/test/resources" + File.separator + "Repositories");
@@ -53,12 +53,12 @@ public class Utilities {
 	 * @param objectValue
 	 */
 	public static void createJavaFile(String repoSitoryName, String objectName, String objectValue) {
-		String packageName = "com.demo.objects";
+		String packageName = "com.snj.objects";
 		String className = repoSitoryName;
 
 		// Creating the com.demo.objects package inside src/test/java
 		String rootDirectory = System.getProperty("user.dir") + "/src/test/java";
-		String packagePath = rootDirectory + "/com/demo/objects";
+		String packagePath = rootDirectory + "/com/snj/objects";
 		File packageDirectory = new File(packagePath);
 		if (!packageDirectory.exists()) {
 			packageDirectory.mkdirs();

@@ -1,4 +1,4 @@
-package com.snj.ai;
+package com.snj.inspect;
 
 import java.io.File;
 import java.io.FileInputStream;
