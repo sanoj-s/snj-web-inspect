@@ -2,6 +2,7 @@ package com.snj.utils;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -25,12 +26,18 @@ public class Utilities {
 		try {
 			Path sourcePath = Path.of("src/main/resources/Template/Template.xlsx");
 			byte[] fileContent = Files.readAllBytes(sourcePath);
+
+			File resourcesDirectory = new File("src/test/resources" + File.separator + "Repositories");
+			if (!resourcesDirectory.exists()) {
+				resourcesDirectory.mkdirs();
+			}
 			destinationPath = Path.of("src/test/resources/Repositories/" + repositoryName + ".xlsx");
 			Files.createDirectories(destinationPath.getParent());
 			Files.createFile(destinationPath);
 			Files.write(destinationPath, fileContent);
 
 			System.out.println("Repository file created at " + destinationPath);
+
 		} catch (IOException e) {
 		}
 		return destinationPath.toString();
@@ -48,6 +55,15 @@ public class Utilities {
 	public static void createJavaFile(String repoSitoryName, String objectName, String objectValue) {
 		String packageName = "com.demo.objects";
 		String className = repoSitoryName;
+
+		// Creating the com.demo.objects package inside src/test/java
+		String rootDirectory = System.getProperty("user.dir") + "/src/test/java";
+		String packagePath = rootDirectory + "/com/demo/objects";
+		File packageDirectory = new File(packagePath);
+		if (!packageDirectory.exists()) {
+			packageDirectory.mkdirs();
+		}
+
 		String directory = "src/test/java/" + packageName.replace(".", "/") + "/";
 		String fileName = directory + className + ".java";
 

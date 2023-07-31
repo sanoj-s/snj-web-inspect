@@ -214,6 +214,74 @@ public class LocatorsStorage {
 	}
 
 	/**
+	 * Method to track 'image' tag locators and mapped to the object repository
+	 * 'ImageLocators' excel sheet
+	 * 
+	 * @author sanoj.swaminathan
+	 * @since 31-07-2023
+	 * @param repositoryFilePath
+	 * @param imgTags
+	 * @param sheetName
+	 */
+	public static void trackImgTagLocators(String repositoryFilePath, Elements imgTags, String sheetName) {
+		try {
+			// This data needs to be written (Object[])
+			Map<String, Object[]> data = new TreeMap<String, Object[]>();
+			data.put("0", new Object[] { "Loc1", "Loc2", "Loc3", "Loc4", "Loc5", "Loc6", "Loc7" });
+
+			// Write value to the first column of the sheet based on the for attribute
+			// availability
+			int i = 0;
+			for (Element imgTag : imgTags) {
+				if (!imgTag.attr("alt").equals("")) {
+					String altAttributeValue = imgTag.attr("alt");
+					data.put("" + (i + 1), new Object[] { altAttributeValue, "", "", "", "", "", "" });
+					i++;
+				}
+			}
+			// Iterate over data and write to Excel repository
+			writeObjectDataToExcelRepository(repositoryFilePath, sheetName, data);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	/**
+	 * Method to track 'h1','h2','h3','h4' tag locators and mapped to the object
+	 * repository 'HeadingLocators' excel sheet
+	 * 
+	 * @author sanoj.swaminathan
+	 * @since 31-07-2023
+	 * @param repositoryFilePath
+	 * @param headingTags
+	 * @param sheetName
+	 */
+	public static void trackHeadingTagLocators(String repositoryFilePath, Elements headingTags, String sheetName) {
+		try {
+			// This data needs to be written (Object[])
+			Map<String, Object[]> data = new TreeMap<String, Object[]>();
+			data.put("0", new Object[] { "Loc1", "Loc2", "Loc3", "Loc4", "Loc5", "Loc6", "Loc7" });
+
+			// Write value to the first column of the sheet
+			int i = 0;
+			for (Element headingTag : headingTags) {
+				if (!headingTag.text().equals("")) {
+					data.put("" + (i + 1), new Object[] { headingTag.text(), "", "", "", "", "", "" });
+					i++;
+				}
+			}
+			// Iterate over data and write to Excel repository
+			writeObjectDataToExcelRepository(repositoryFilePath, sheetName, data);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	/**
 	 * Private method to write the object data into the Excel repositories
 	 * 
 	 * @author sanoj.swamination

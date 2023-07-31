@@ -26,7 +26,7 @@ import com.snj.ai.LocatorsPattern;
 import com.snj.ai.LocatorsStorage;
 import com.snj.utils.Utilities;
 
-public class ScanLocator implements ActionListener {
+public class WebInspect implements ActionListener {
 	static WebDriver driver;
 	private static JTextField textFieldURL;
 	private static JTextField textFieldRepository;
@@ -35,7 +35,13 @@ public class ScanLocator implements ActionListener {
 	private static String editFieldLabelURL = "Enter application URL  ";
 	private static String editFieldLabelRepository = "Enter repository name";
 
-	public static void ScanLocatorValue() {
+	/**
+	 * Method to start the scanning the object locators
+	 * 
+	 * @author sanoj.swaminathan
+	 * @since 31-07-2023
+	 */
+	public static void scanObjectLocators() {
 
 		// Create a button
 		JButton buttonStart = new JButton("Start");
@@ -130,6 +136,8 @@ public class ScanLocator implements ActionListener {
 						Elements aTag = document.getElementsByTag("a");
 						Elements labelTags = document.getElementsByTag("label");
 						Elements tableTags = document.getElementsByTag("table");
+						Elements imageTags = document.getElementsByTag("img");
+						Elements headingTags = document.select("h1, h2, h3, h4");
 						try {
 							repoSitoryFilePath = Utilities.copyRepositoryTemplate(repositoryName);
 							LocatorsStorage.trackObjectLocators(repoSitoryFilePath, "" + inputTag, "InputLocators",
@@ -143,6 +151,8 @@ public class ScanLocator implements ActionListener {
 							LocatorsStorage.trackATagLocators(repoSitoryFilePath, aTag, "LinkLocators");
 							LocatorsStorage.trackLabelTagLocators(repoSitoryFilePath, labelTags, "LabelLocators");
 							LocatorsStorage.trackTableTagLocators(repoSitoryFilePath, tableTags, "TableLocators");
+							LocatorsStorage.trackImgTagLocators(repoSitoryFilePath, imageTags, "ImageLocators");
+							LocatorsStorage.trackHeadingTagLocators(repoSitoryFilePath, headingTags, "HeadingLocators");
 						} catch (EncryptedDocumentException | IOException exec) {
 							exec.printStackTrace();
 						}
@@ -155,6 +165,8 @@ public class ScanLocator implements ActionListener {
 							LocatorsPattern.createATagXpathObjects(repoSitoryFilePath, repositoryName);
 							LocatorsPattern.createLabelTagXpathObjects(repoSitoryFilePath, repositoryName);
 							LocatorsPattern.createTableTagXpathObjects(repoSitoryFilePath, repositoryName);
+							LocatorsPattern.createImgTagXpathObjects(repoSitoryFilePath, repositoryName);
+							LocatorsPattern.createHeadingTagXpathObjects(repoSitoryFilePath, repositoryName);
 						} catch (Exception exec) {
 						}
 						JOptionPane.showMessageDialog((JButton) e.getSource(),
@@ -167,7 +179,7 @@ public class ScanLocator implements ActionListener {
 
 	// Entry point
 	public static void main(String[] args) {
-		ScanLocatorValue();
+		scanObjectLocators();
 	}
 
 	@Override

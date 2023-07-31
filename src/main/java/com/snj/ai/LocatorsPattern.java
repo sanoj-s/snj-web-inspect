@@ -127,13 +127,13 @@ public class LocatorsPattern {
 	 * 
 	 * @author sanoj.swaminathan
 	 * @since 27-07-2023
-	 * @param repoSitoryFilePath
+	 * @param repositoryFilePath
 	 * @param repositoryName
 	 * @return
 	 * @throws Exception
 	 */
-	public static String createInputTagXpathObjects(String repoSitoryFilePath, String repositoryName) throws Exception {
-		setExcelFile(repoSitoryFilePath, "InputLocators");
+	public static String createInputTagXpathObjects(String repositoryFilePath, String repositoryName) throws Exception {
+		setExcelFile(repositoryFilePath, "InputLocators");
 		String objectName = null;
 		for (int i = 1; i <= 1000; i++) {
 			seleniumLocator = "//*[" + "@" + getCellData("Loc1", i) + " and @" + getCellData("Loc2", i) + " and @"
@@ -172,14 +172,14 @@ public class LocatorsPattern {
 	 * 
 	 * @author sanoj.swaminathan
 	 * @since 27-07-2023
-	 * @param repoSitoryFilePath
+	 * @param repositoryFilePath
 	 * @param repositoryName
 	 * @return
 	 * @throws Exception
 	 */
-	public static String createTextAreaTagXpathObjects(String repoSitoryFilePath, String repositoryName)
+	public static String createTextAreaTagXpathObjects(String repositoryFilePath, String repositoryName)
 			throws Exception {
-		setExcelFile(repoSitoryFilePath, "TextareaLocators");
+		setExcelFile(repositoryFilePath, "TextareaLocators");
 		String objectName = null;
 		for (int i = 1; i <= 1000; i++) {
 			seleniumLocator = "//*[" + "@" + getCellData("Loc1", i) + "and @" + getCellData("Loc2", i) + "and @"
@@ -218,14 +218,14 @@ public class LocatorsPattern {
 	 * 
 	 * @author sanoj.swaminathan
 	 * @since 27-07-2023
-	 * @param repoSitoryFilePath
+	 * @param repositoryFilePath
 	 * @param repositoryName
 	 * @return
 	 * @throws Exception
 	 */
-	public static String createSelectTagXpathObjects(String repoSitoryFilePath, String repositoryName)
+	public static String createSelectTagXpathObjects(String repositoryFilePath, String repositoryName)
 			throws Exception {
-		setExcelFile(repoSitoryFilePath, "DropDownLocators");
+		setExcelFile(repositoryFilePath, "DropDownLocators");
 		String objectName = null;
 		for (int i = 1; i <= 1000; i++) {
 			seleniumLocator = "//select[" + "@" + getCellData("Loc1", i) + "]";
@@ -262,14 +262,14 @@ public class LocatorsPattern {
 	 * 
 	 * @author sanoj.swaminathan
 	 * @since 27-07-2023
-	 * @param repoSitoryFilePath
+	 * @param repositoryFilePath
 	 * @param repositoryName
 	 * @return
 	 * @throws Exception
 	 */
-	public static String createButtonTagXpathObjects(String repoSitoryFilePath, String repositoryName)
+	public static String createButtonTagXpathObjects(String repositoryFilePath, String repositoryName)
 			throws Exception {
-		setExcelFile(repoSitoryFilePath, "ButtonLocators");
+		setExcelFile(repositoryFilePath, "ButtonLocators");
 		String objectName = null;
 		for (int i = 1; i <= 1000; i++) {
 			seleniumLocator = "//*[" + "@" + getCellData("Loc1", i) + "]";
@@ -305,13 +305,13 @@ public class LocatorsPattern {
 	 * 
 	 * @author sanoj.swaminathan
 	 * @since 27-07-2023
-	 * @param repoSitoryFilePath
+	 * @param repositoryFilePath
 	 * @param repositoryName
 	 * @return
 	 * @throws Exception
 	 */
-	public static String createATagXpathObjects(String repoSitoryFilePath, String repositoryName) throws Exception {
-		setExcelFile(repoSitoryFilePath, "LinkLocators");
+	public static String createATagXpathObjects(String repositoryFilePath, String repositoryName) throws Exception {
+		setExcelFile(repositoryFilePath, "LinkLocators");
 		String objectName = null;
 		for (int i = 1; i <= 1000; i++) {
 
@@ -365,13 +365,13 @@ public class LocatorsPattern {
 	 * 
 	 * @author sanoj.swaminathan
 	 * @since 28-07-2023
-	 * @param repoSitoryFilePath
+	 * @param repositoryFilePath
 	 * @param repositoryName
 	 * @return
 	 * @throws Exception
 	 */
-	public static String createLabelTagXpathObjects(String repoSitoryFilePath, String repositoryName) throws Exception {
-		setExcelFile(repoSitoryFilePath, "LabelLocators");
+	public static String createLabelTagXpathObjects(String repositoryFilePath, String repositoryName) throws Exception {
+		setExcelFile(repositoryFilePath, "LabelLocators");
 		String objectName = null;
 		for (int i = 1; i <= 1000; i++) {
 
@@ -408,14 +408,14 @@ public class LocatorsPattern {
 	 * 
 	 * @author sanoj.swamianthan
 	 * @since 28-07-2023
-	 * @param repoSitoryFilePath
+	 * @param repositoryFilePath
 	 * @param repositoryName
 	 * @return
 	 * @throws Exception
 	 */
-	public static String createTableTagXpathObjects(String repoSitoryFilePath, String repositoryName) throws Exception {
+	public static String createTableTagXpathObjects(String repositoryFilePath, String repositoryName) throws Exception {
 
-		setExcelFile(repoSitoryFilePath, "TableLocators");
+		setExcelFile(repositoryFilePath, "TableLocators");
 		String objectName = null;
 		for (int i = 1; i <= 1000; i++) {
 
@@ -458,6 +458,73 @@ public class LocatorsPattern {
 				objectName = finalText;
 
 				Utilities.createJavaFile(repositoryName, "tbl_" + objectName, seleniumLocator);
+			}
+		}
+		return seleniumLocator;
+	}
+
+	/**
+	 * Method to write the 'img' tag related locators into the object repository
+	 * class
+	 * 
+	 * @author sanoj.swaminathan
+	 * @since 31-07-2023
+	 * @param repositoryFilePath
+	 * @param repositoryName
+	 * @return
+	 * @throws Exception
+	 */
+	public static String createImgTagXpathObjects(String repositoryFilePath, String repositoryName) throws Exception {
+		setExcelFile(repositoryFilePath, "ImageLocators");
+		String objectName = null;
+		for (int i = 1; i <= 1000; i++) {
+
+			// Attribute matching and get the object and object name
+			if (!getCellData("Loc1", i).equals("")) {
+				String extractedText;
+				seleniumLocator = "//img[@alt='" + getCellData("Loc1", i) + "' or contains(@alt,'"
+						+ getCellData("Loc1", i).substring(0, 6) + "')]";
+				extractedText = getCellData("Loc1", i).replaceAll("[^a-zA-Z0-9]", "");
+				String firstLetter = extractedText.substring(0, 1).toLowerCase();
+				String restOfString = extractedText.substring(1);
+				String finalText = firstLetter + restOfString;
+				objectName = finalText;
+
+				Utilities.createJavaFile(repositoryName, "img_" + objectName, seleniumLocator);
+			}
+		}
+		return seleniumLocator;
+	}
+
+	/**
+	 * Method to write the 'h1','h2','h3','h4' tags related locators into the object
+	 * repository class
+	 * 
+	 * @author sanoj.swamintan
+	 * @since 31-07-2023
+	 * @param repositoryFilePath
+	 * @param repositoryName
+	 * @throws Exception
+	 */
+	public static String createHeadingTagXpathObjects(String repositoryFilePath, String repositoryName)
+			throws Exception {
+
+		setExcelFile(repositoryFilePath, "HeadingLocators");
+		String objectName = null;
+		for (int i = 1; i <= 1000; i++) {
+
+			// Attribute matching and get the object and object name
+			if (!getCellData("Loc1", i).equals("")) {
+				String extractedText;
+				seleniumLocator = "//*[text()='" + getCellData("Loc1", i) + "' or contains(text(),'"
+						+ getCellData("Loc1", i).substring(0, 5) + "')]";
+				extractedText = getCellData("Loc1", i).replaceAll("[^a-zA-Z0-9]", "");
+				String firstLetter = extractedText.substring(0, 1).toLowerCase();
+				String restOfString = extractedText.substring(1);
+				String finalText = firstLetter + restOfString;
+				objectName = finalText;
+
+				Utilities.createJavaFile(repositoryName, "lbl_" + objectName, seleniumLocator);
 			}
 		}
 		return seleniumLocator;
