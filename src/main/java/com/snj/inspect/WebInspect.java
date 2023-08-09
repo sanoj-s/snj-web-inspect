@@ -173,6 +173,11 @@ public class WebInspect implements ActionListener {
 		});
 	}
 
+	// Entry point
+	public static void main(String[] args) {
+		scanObjectLocators();
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
