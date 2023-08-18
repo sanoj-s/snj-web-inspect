@@ -103,7 +103,7 @@ public class WebInspect implements ActionListener {
 		buttonScan.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String repoSitoryFilePath = null;
+				String repositoryFilePath = null;
 				String repositoryName;
 				String repositoryFieldValue = textFieldRepository.getText().replaceAll("\\s+", "");
 
@@ -128,41 +128,45 @@ public class WebInspect implements ActionListener {
 						Elements inputTag = document.getElementsByTag("input");
 						Elements buttonTag = document.getElementsByTag("button");
 						Elements textareaTag = document.getElementsByTag("textarea");
-						Elements optionTag = document.getElementsByTag("select");
+						Elements selectTag = document.getElementsByTag("select");
+						Elements optionTag = document.getElementsByTag("option");
 						Elements aTag = document.getElementsByTag("a");
 						Elements labelTags = document.getElementsByTag("label");
 						Elements tableTags = document.getElementsByTag("table");
 						Elements imageTags = document.getElementsByTag("img");
 						Elements headingTags = document.select("h1, h2, h3, h4");
 						try {
-							repoSitoryFilePath = WebInspectUtilities.copyRepositoryTemplate(repositoryName);
-							LocatorsStorage.trackObjectLocators(repoSitoryFilePath, "" + inputTag, "InputLocators",
+							repositoryFilePath = WebInspectUtilities.copyRepositoryTemplate(repositoryName);
+							LocatorsStorage.trackLabelTagLocators(repositoryFilePath, labelTags, "LabelLocators");
+							LocatorsStorage.trackHeadingTagLocators(repositoryFilePath, headingTags, "HeadingLocators");
+							LocatorsStorage.trackButtonTagLocators(repositoryFilePath, buttonTag, "ButtonLocators");
+							LocatorsStorage.trackTextareaTagLocators(repositoryFilePath, textareaTag,
+									"TextareaLocators");
+							LocatorsStorage.trackATagLocators(repositoryFilePath, aTag, "LinkLocators");
+							LocatorsStorage.trackSelectTagLocators(repositoryFilePath, selectTag, "DropDownLocators");
+							LocatorsStorage.trackOptionTagLocators(repositoryFilePath, optionTag,
+									"DropDownOptionLocators");
+							LocatorsStorage.trackImgTagLocators(repositoryFilePath, imageTags, "ImageLocators");
+							LocatorsStorage.trackTableTagLocators(repositoryFilePath, tableTags, "TableLocators");
+
+							LocatorsStorage.trackObjectLocators(repositoryFilePath, "" + inputTag, "InputLocators",
 									"input");
-							LocatorsStorage.trackObjectLocators(repoSitoryFilePath, "" + buttonTag, "ButtonLocators",
-									"button");
-							LocatorsStorage.trackObjectLocators(repoSitoryFilePath, "" + textareaTag,
-									"TextareaLocators", "textarea");
-							LocatorsStorage.trackObjectLocators(repoSitoryFilePath, "" + optionTag, "DropDownLocators",
-									"select");
-							LocatorsStorage.trackATagLocators(repoSitoryFilePath, aTag, "LinkLocators");
-							LocatorsStorage.trackLabelTagLocators(repoSitoryFilePath, labelTags, "LabelLocators");
-							LocatorsStorage.trackTableTagLocators(repoSitoryFilePath, tableTags, "TableLocators");
-							LocatorsStorage.trackImgTagLocators(repoSitoryFilePath, imageTags, "ImageLocators");
-							LocatorsStorage.trackHeadingTagLocators(repoSitoryFilePath, headingTags, "HeadingLocators");
 						} catch (EncryptedDocumentException | IOException exec) {
 							exec.printStackTrace();
 						}
 						try {
 							// Creating Java Class and mapping the objects
-							LocatorsPattern.createInputTagXpathObjects(repoSitoryFilePath, repositoryName);
-							LocatorsPattern.createTextAreaTagXpathObjects(repoSitoryFilePath, repositoryName);
-							LocatorsPattern.createSelectTagXpathObjects(repoSitoryFilePath, repositoryName);
-							LocatorsPattern.createButtonTagXpathObjects(repoSitoryFilePath, repositoryName);
-							LocatorsPattern.createATagXpathObjects(repoSitoryFilePath, repositoryName);
-							LocatorsPattern.createLabelTagXpathObjects(repoSitoryFilePath, repositoryName);
-							LocatorsPattern.createTableTagXpathObjects(repoSitoryFilePath, repositoryName);
-							LocatorsPattern.createImgTagXpathObjects(repoSitoryFilePath, repositoryName);
-							LocatorsPattern.createHeadingTagXpathObjects(repoSitoryFilePath, repositoryName);
+							LocatorsPattern.createLabelTagXpathObjects(repositoryFilePath, repositoryName);
+							LocatorsPattern.createHeadingTagXpathObjects(repositoryFilePath, repositoryName);
+							LocatorsPattern.createButtonTagXpathObjects(repositoryFilePath, repositoryName);
+							LocatorsPattern.createTextAreaTagXpathObjects(repositoryFilePath, repositoryName);
+							LocatorsPattern.createATagXpathObjects(repositoryFilePath, repositoryName);
+							LocatorsPattern.createSelectTagXpathObjects(repositoryFilePath, repositoryName);
+							LocatorsPattern.createOptionTagXpathObjects(repositoryFilePath, repositoryName);
+							LocatorsPattern.createImgTagXpathObjects(repositoryFilePath, repositoryName);
+							LocatorsPattern.createTableTagXpathObjects(repositoryFilePath, repositoryName);
+
+							LocatorsPattern.createInputTagXpathObjects(repositoryFilePath, repositoryName);
 						} catch (Exception exec) {
 						}
 						JOptionPane.showMessageDialog((JButton) e.getSource(),

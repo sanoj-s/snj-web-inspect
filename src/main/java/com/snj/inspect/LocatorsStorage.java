@@ -70,6 +70,229 @@ public class LocatorsStorage {
 	}
 
 	/**
+	 * Method to track 'select' tag locators and mapped to the object repository
+	 * 'DropDownLocators' excel sheet
+	 * 
+	 * @author sanoj.swaminathan
+	 * @since 18-08-2023
+	 * @param repositoryFilePath
+	 * @param selectTagValues
+	 * @param sheetName
+	 */
+	public static void trackSelectTagLocators(String repositoryFilePath, Elements selectTagValues, String sheetName) {
+		try {
+			// This data needs to be written (Object[])
+			Map<String, Object[]> data = new TreeMap<String, Object[]>();
+			data.put("0", new Object[] { "Loc1", "Loc2", "Loc3", "Loc4", "Loc5", "Loc6", "Loc7" });
+
+			// Write value to the first, second of the sheet based on the name and id
+			// attributes availability
+			int i = 0;
+			for (Element selectTag : selectTagValues) {
+				String name = selectTag.attr("name");
+				String id = selectTag.attr("id");
+				String className = selectTag.attr("class");
+				if (!name.equals("") || !id.equals("") || !className.equals("")) {
+					if (!name.equals("")) {
+						data.put("" + (i + 1), new Object[] { "name='" + name + "'", "", "", "", "", "", "" });
+					} else if (!id.equals("")) {
+						data.put("" + (i + 1), new Object[] { "", "id='" + id + "'", "", "", "", "", "" });
+					} else if (!className.equals("")) {
+						data.put("" + (i + 1), new Object[] { "", "", "class='" + className + "'", "", "", "", "" });
+					} else if (!name.equals("") && !className.equals("") && id.equals("")) {
+						data.put("" + (i + 1), new Object[] { "name='" + name + "'", "", "class='" + className + "'",
+								"", "", "", "" });
+					} else if (name.equals("") && !className.equals("") && id.equals("")) {
+						data.put("" + (i + 1),
+								new Object[] { "", "id='" + id + "'", "class='" + className + "'", "", "", "", "" });
+					} else if (!name.equals("") && className.equals("") && id.equals("")) {
+						data.put("" + (i + 1),
+								new Object[] { "name='" + name + "'", "id='" + id + "'", "", "", "", "", "" });
+					} else {
+						data.put("" + (i + 1), new Object[] { "name='" + name + "'", "id='" + id + "'",
+								"class='" + className + "'", "", "", "", "" });
+					}
+					i++;
+				}
+			}
+			// Iterate over data and write to Excel repository
+			writeObjectDataToExcelRepository(repositoryFilePath, sheetName, data);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Method to track 'option' tag locators and mapped to the object repository
+	 * 'DropDownOptionLocators' excel sheet
+	 * 
+	 * @author sanoj.swaminathan
+	 * @since 18-08-2023
+	 * @param repositoryFilePath
+	 * @param optionTags
+	 * @param sheetName
+	 */
+	public static void trackOptionTagLocators(String repositoryFilePath, Elements optionTags, String sheetName) {
+		try {
+			// This data needs to be written (Object[])
+			Map<String, Object[]> data = new TreeMap<String, Object[]>();
+			data.put("0", new Object[] { "Loc1", "Loc2", "Loc3", "Loc4", "Loc5", "Loc6", "Loc7" });
+
+			// Write value to the first, second of the sheet based on the text and value
+			// attributes availability
+			int i = 0;
+			for (Element optionTag : optionTags) {
+				String value = optionTag.attr("value");
+				String text = optionTag.text();
+				if (!value.equals("") || !text.equals("")) {
+					if (!value.equals("")) {
+						data.put("" + (i + 1), new Object[] { "value='" + value + "'", "", "", "", "", "", "" });
+					} else if (!text.equals("")) {
+						data.put("" + (i + 1), new Object[] { "", text, "", "", "", "", "" });
+					} else {
+						data.put("" + (i + 1), new Object[] { "value='" + value + "'", text, "", "", "", "", "" });
+					}
+					i++;
+				}
+			}
+			// Iterate over data and write to Excel repository
+			writeObjectDataToExcelRepository(repositoryFilePath, sheetName, data);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Method to track 'button' tag locators and mapped to the object repository
+	 * 'ButtonLocators' excel sheet
+	 * 
+	 * @author sanoj.swaminathan
+	 * @since 18-08-2023
+	 * @param repositoryFilePath
+	 * @param buttonTagValues
+	 * @param sheetName
+	 */
+	public static void trackButtonTagLocators(String repositoryFilePath, Elements buttonTagValues, String sheetName) {
+		try {
+			// This data needs to be written (Object[])
+			Map<String, Object[]> data = new TreeMap<String, Object[]>();
+			data.put("0", new Object[] { "Loc1", "Loc2", "Loc3", "Loc4", "Loc5", "Loc6", "Loc7" });
+
+			// Write value to the first, second, third and fourth columns of the sheet based
+			// on the button text, button name, button value, button class attributes
+			// availability
+			int i = 0;
+			for (Element buttonTag : buttonTagValues) {
+				String buttonText = buttonTag.text();
+				String buttonName = buttonTag.attr("name");
+				String buttonValue = buttonTag.attr("value");
+				String buttonClass = buttonTag.attr("class");
+				if (!buttonText.equals("") || !buttonName.equals("") || !buttonValue.equals("")
+						|| !buttonClass.equals("")) {
+					if (!buttonName.equals("")) {
+						data.put("" + (i + 1),
+								new Object[] { buttonTag.text(), "name='" + buttonName + "'", "", "", "", "", "" });
+					} else if (!buttonValue.equals("") && buttonName.equals("")) {
+						data.put("" + (i + 1),
+								new Object[] { buttonTag.text(), "", "value='" + buttonValue + "'", "", "", "", "" });
+					} else if (!buttonClass.equals("") && buttonName.equals("")) {
+						data.put("" + (i + 1),
+								new Object[] { buttonTag.text(), "", "", "class='" + buttonClass + "'", "", "", "" });
+					} else if (!buttonClass.equals("") && !buttonName.equals("") && buttonValue.equals("")) {
+						data.put("" + (i + 1), new Object[] { buttonTag.text(), "name='" + buttonName + "'", "",
+								"class='" + buttonClass + "'", "", "", "" });
+					} else if (!buttonClass.equals("") && buttonName.equals("") && !buttonValue.equals("")) {
+						data.put("" + (i + 1), new Object[] { buttonTag.text(), "", "value='" + buttonValue + "'",
+								"class='" + buttonClass + "'", "", "", "" });
+					} else if (!buttonValue.equals("") && !buttonName.equals("")) {
+						data.put("" + (i + 1), new Object[] { buttonTag.text(), "name='" + buttonName + "'",
+								"value='" + buttonValue + "'", "", "", "", "" });
+					} else if (!buttonValue.equals("") && !buttonName.equals("") && !buttonClass.equals("")) {
+						data.put("" + (i + 1), new Object[] { buttonTag.text(), "name='" + buttonName + "'",
+								"value='" + buttonValue + "'", "class='" + buttonClass + "'", "", "", "" });
+					} else {
+						data.put("" + (i + 1), new Object[] { buttonTag.text(), "", "", "", "", "", "" });
+					}
+					i++;
+				}
+			}
+			// Iterate over data and write to Excel repository
+			writeObjectDataToExcelRepository(repositoryFilePath, sheetName, data);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Method to track 'textarea' tag locators and mapped to the object repository
+	 * 'TextareaLocators' excel sheet
+	 * 
+	 * @author sanoj.swaminathan
+	 * @since 18-08-2023
+	 * @param repositoryFilePath
+	 * @param textareaTags
+	 * @param sheetName
+	 */
+	public static void trackTextareaTagLocators(String repositoryFilePath, Elements textareaTags, String sheetName) {
+
+		try {
+			// This data needs to be written (Object[])
+			Map<String, Object[]> data = new TreeMap<String, Object[]>();
+			data.put("0", new Object[] { "Loc1", "Loc2", "Loc3", "Loc4", "Loc5", "Loc6", "Loc7" });
+
+			// Write value to the first, second, third and fourth columns of the sheet based
+			// on the textarea text, textarea name, textarea value, textarea placeholder
+			// attributes
+			// availability
+			int i = 0;
+			for (Element textareaTag : textareaTags) {
+				String textareaText = textareaTag.text();
+				String textareaName = textareaTag.attr("name");
+				String textareaPlaceholder = textareaTag.attr("placeholder");
+				String textareaValue = textareaTag.attr("value");
+
+				if (!textareaText.equals("") || !textareaName.equals("") || !textareaPlaceholder.equals("")
+						|| !textareaValue.equals("")) {
+					if (!textareaName.equals("")) {
+						data.put("" + (i + 1),
+								new Object[] { textareaTag.text(), "name='" + textareaName + "'", "", "", "", "", "" });
+					} else if (!textareaPlaceholder.equals("") && !textareaName.equals("")
+							&& textareaValue.equals("")) {
+						data.put("" + (i + 1), new Object[] { textareaTag.text(), "name='" + textareaName + "'", "",
+								"placeholder='" + textareaPlaceholder + "'", "", "", "" });
+					} else if (!textareaPlaceholder.equals("") && textareaName.equals("")
+							&& !textareaValue.equals("")) {
+						data.put("" + (i + 1), new Object[] { textareaTag.text(), "", "value='" + textareaValue + "'",
+								"placeholder='" + textareaPlaceholder + "'", "", "", "" });
+					} else if (!textareaPlaceholder.equals("") && textareaName.equals("")) {
+						data.put("" + (i + 1), new Object[] { textareaTag.text(), "", "",
+								"placeholder='" + textareaPlaceholder + "'", "", "", "" });
+					} else if (!textareaValue.equals("") && !textareaName.equals("")) {
+						data.put("" + (i + 1), new Object[] { textareaTag.text(), "name='" + textareaName + "'",
+								"value='" + textareaValue + "'", "", "", "", "" });
+					} else if (!textareaValue.equals("") && textareaName.equals("")) {
+						data.put("" + (i + 1), new Object[] { textareaTag.text(), "", "value='" + textareaValue + "'",
+								"", "", "", "" });
+					} else if (!textareaValue.equals("") && !textareaName.equals("")
+							&& !textareaPlaceholder.equals("")) {
+						data.put("" + (i + 1),
+								new Object[] { textareaTag.text(), "name='" + textareaName + "'",
+										"value='" + textareaValue + "'", "placeholder='" + textareaPlaceholder + "'",
+										"", "", "" });
+					} else {
+						data.put("" + (i + 1), new Object[] { textareaTag.text(), "", "", "", "", "", "" });
+					}
+					i++;
+				}
+			}
+			// Iterate over data and write to Excel repository
+			writeObjectDataToExcelRepository(repositoryFilePath, sheetName, data);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
 	 * Method to track 'a' tag locators and mapped to the object repository
 	 * 'LinkLocators' excel sheet
 	 * 

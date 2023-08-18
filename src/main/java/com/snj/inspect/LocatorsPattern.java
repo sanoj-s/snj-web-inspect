@@ -124,7 +124,7 @@ public class LocatorsPattern {
 	 * class
 	 * 
 	 * @author sanoj.swaminathan
-	 * @since 27-07-2023
+	 * @since 27-06-2023
 	 * @param repositoryFilePath
 	 * @param repositoryName
 	 * @return
@@ -169,7 +169,7 @@ public class LocatorsPattern {
 	 * repository class
 	 * 
 	 * @author sanoj.swaminathan
-	 * @since 27-07-2023
+	 * @since 18-08-2023
 	 * @param repositoryFilePath
 	 * @param repositoryName
 	 * @return
@@ -180,30 +180,57 @@ public class LocatorsPattern {
 		setExcelFile(repositoryFilePath, "TextareaLocators");
 		String objectName = null;
 		for (int i = 1; i <= 1000; i++) {
-			seleniumLocator = "//*[" + "@" + getCellData("Loc1", i) + "and @" + getCellData("Loc2", i) + "and @"
-					+ getCellData("Loc3", i) + "]";
-			if (!seleniumLocator.contains("type='hidden'")) {
-				if (!getCellData("Loc1", i).equals("")) {
-					for (int j = 1; j <= 4; j++) {
-						// Attribute matching and get the object name
-						if (getCellData("Loc" + j, i).startsWith("placeholder=")
-								|| getCellData("Loc" + j, i).startsWith("name=")
-								|| getCellData("Loc" + j, i).startsWith("value=")) {
-							String[] parts = getCellData("Loc" + j, i).split("=");
-							String extractedText = parts[1].replaceAll("[^a-zA-Z0-9]", "");
-							String firstLetter = extractedText.substring(0, 1).toLowerCase();
-							String restOfString = extractedText.substring(1);
-							String finalText = firstLetter + restOfString;
-							objectName = finalText;
-							break;
-						}
-					}
 
-					if (objectName == null) {
-						objectName = "txa_objectName" + i;
-					}
-					WebInspectUtilities.createJavaFile(repositoryName, "txa_" + objectName, seleniumLocator);
+			// Attribute matching and get the object and object name
+			if (!getCellData("Loc1", i).equals("") || !getCellData("Loc2", i).equals("")
+					|| !getCellData("Loc3", i).equals("") || !getCellData("Loc4", i).equals("")) {
+
+				String extractedText;
+				if (!getCellData("Loc1", i).equals("") && !getCellData("Loc2", i).equals("")) {
+					seleniumLocator = "//textarea[text()='" + getCellData("Loc1", i) + "' or @" + getCellData("Loc2", i)
+							+ "]";
+					String[] parts = getCellData("Loc2", i).split("=");
+					extractedText = parts[1].replaceAll("[^a-zA-Z0-9]", "");
+				} else if (!getCellData("Loc2", i).equals("") && !getCellData("Loc3", i).equals("")) {
+					seleniumLocator = "//textarea[@" + getCellData("Loc2", i) + " or @" + getCellData("Loc3", i) + "]";
+					String[] parts = getCellData("Loc2", i).split("=");
+					extractedText = parts[1].replaceAll("[^a-zA-Z0-9]", "");
+				} else if (!getCellData("Loc2", i).equals("") && !getCellData("Loc4", i).equals("")) {
+					seleniumLocator = "//textarea[@" + getCellData("Loc2", i) + " or @" + getCellData("Loc4", i) + "]";
+					String[] parts = getCellData("Loc2", i).split("=");
+					extractedText = parts[1].replaceAll("[^a-zA-Z0-9]", "");
+				} else if (!getCellData("Loc3", i).equals("") && !getCellData("Loc4", i).equals("")) {
+					seleniumLocator = "//textarea[@" + getCellData("Loc3", i) + " or @" + getCellData("Loc4", i) + "]";
+					String[] parts = getCellData("Loc4", i).split("=");
+					extractedText = parts[1].replaceAll("[^a-zA-Z0-9]", "");
+				} else if (!getCellData("Loc1", i).equals("") && !getCellData("Loc4", i).equals("")) {
+					seleniumLocator = "//textarea[text()='" + getCellData("Loc1", i) + "' or @" + getCellData("Loc4", i)
+							+ "]";
+					String[] parts = getCellData("Loc4", i).split("=");
+					extractedText = parts[1].replaceAll("[^a-zA-Z0-9]", "");
+				} else if (!getCellData("Loc4", i).equals("")) {
+					seleniumLocator = "//textarea[@" + getCellData("Loc4", i) + "]";
+					String[] parts = getCellData("Loc4", i).split("=");
+					extractedText = parts[1].replaceAll("[^a-zA-Z0-9]", "");
+				} else if (!getCellData("Loc2", i).equals("")) {
+					seleniumLocator = "//textarea[@" + getCellData("Loc2", i) + "]";
+					String[] parts = getCellData("Loc2", i).split("=");
+					extractedText = parts[1].replaceAll("[^a-zA-Z0-9]", "");
+				} else if (!getCellData("Loc1", i).equals("")) {
+					seleniumLocator = "//textarea[text()='" + getCellData("Loc1", i) + "']";
+					extractedText = getCellData("Loc1", i).replaceAll("[^a-zA-Z0-9]", "");
+				} else {
+					seleniumLocator = "//button[text()='" + getCellData("Loc1", i) + "' or @" + getCellData("Loc2", i)
+							+ " or @" + getCellData("Loc3", i) + " or @" + getCellData("Loc4", i) + "]";
+					String[] parts = getCellData("Loc2", i).split("=");
+					extractedText = parts[1].replaceAll("[^a-zA-Z0-9]", "");
 				}
+
+				String firstLetter = extractedText.substring(0, 1).toLowerCase();
+				String restOfString = extractedText.substring(1);
+				String finalText = firstLetter + restOfString;
+				objectName = finalText;
+				WebInspectUtilities.createJavaFile(repositoryName, "txa_" + objectName, seleniumLocator);
 			}
 		}
 		return seleniumLocator;
@@ -215,7 +242,7 @@ public class LocatorsPattern {
 	 * class
 	 * 
 	 * @author sanoj.swaminathan
-	 * @since 27-07-2023
+	 * @since 18-08-2023
 	 * @param repositoryFilePath
 	 * @param repositoryName
 	 * @return
@@ -226,29 +253,91 @@ public class LocatorsPattern {
 		setExcelFile(repositoryFilePath, "DropDownLocators");
 		String objectName = null;
 		for (int i = 1; i <= 1000; i++) {
-			seleniumLocator = "//select[" + "@" + getCellData("Loc1", i) + "]";
-			if (!seleniumLocator.contains("type='hidden'")) {
-				if (!getCellData("Loc1", i).equals("")) {
-					for (int j = 1; j <= 4; j++) {
-						// Attribute matching and get the object name
-						if (getCellData("Loc" + j, i).startsWith("placeholder=")
-								|| getCellData("Loc" + j, i).startsWith("name=")
-								|| getCellData("Loc" + j, i).startsWith("value=")) {
-							String[] parts = getCellData("Loc" + j, i).split("=");
-							String extractedText = parts[1].replaceAll("[^a-zA-Z0-9]", "");
-							String firstLetter = extractedText.substring(0, 1).toLowerCase();
-							String restOfString = extractedText.substring(1);
-							String finalText = firstLetter + restOfString;
-							objectName = finalText;
-							break;
-						}
-					}
+			// Attribute matching and get the object and object name
 
-					if (objectName == null) {
-						objectName = "ddl_objectName" + i;
-					}
-					WebInspectUtilities.createJavaFile(repositoryName, "ddl_" + objectName, seleniumLocator);
+			String name = getCellData("Loc1", i);
+			String id = getCellData("Loc2", i);
+			String className = getCellData("Loc3", i);
+
+			if (!name.equals("") || !id.equals("") || !className.equals("")) {
+				String extractedText;
+				if (!name.equals("") && id.equals("") && className.equals("")) {
+					seleniumLocator = "//select[@" + name + "]";
+					String[] parts = name.split("=");
+					extractedText = parts[1].replaceAll("[^a-zA-Z0-9]", "");
+				} else if (name.equals("") && !id.equals("") && className.equals("")) {
+					seleniumLocator = "//select[@" + id + "]";
+					String[] parts = id.split("=");
+					extractedText = parts[1].replaceAll("[^a-zA-Z0-9]", "");
+				} else if (name.equals("") && id.equals("") && !className.equals("")) {
+					seleniumLocator = "//select[@" + className + "]";
+					String[] parts = className.split("=");
+					extractedText = parts[1].replaceAll("[^a-zA-Z0-9]", "");
+				} else if (!name.equals("") && !id.equals("") && className.equals("")) {
+					seleniumLocator = "//select[@" + name + " or @" + id + "]";
+					String[] parts = name.split("=");
+					extractedText = parts[1].replaceAll("[^a-zA-Z0-9]", "");
+				} else if (!name.equals("") && id.equals("") && !className.equals("")) {
+					seleniumLocator = "//select[@" + name + " or @" + className + "]";
+					String[] parts = name.split("=");
+					extractedText = parts[1].replaceAll("[^a-zA-Z0-9]", "");
+				} else if (name.equals("") && !id.equals("") && !className.equals("")) {
+					seleniumLocator = "//select[@" + id + " or @" + className + "]";
+					String[] parts = id.split("=");
+					extractedText = parts[1].replaceAll("[^a-zA-Z0-9]", "");
+				} else {
+					seleniumLocator = "//select[@" + getCellData("Loc1", i) + " or @" + getCellData("Loc2", i) + "]";
+					String[] parts = getCellData("Loc1", i).split("=");
+					extractedText = parts[1].replaceAll("[^a-zA-Z0-9]", "");
 				}
+				String firstLetter = extractedText.substring(0, 1).toLowerCase();
+				String restOfString = extractedText.substring(1);
+				String finalText = firstLetter + restOfString;
+				objectName = finalText;
+				WebInspectUtilities.createJavaFile(repositoryName, "ddl_" + objectName, seleniumLocator);
+			}
+		}
+		return seleniumLocator;
+	}
+
+	/**
+	 * Method to write the 'option' tag related locators into the object repository
+	 * class
+	 * 
+	 * @author sanoj.swaminathan
+	 * @since 18-08-2023
+	 * @param repositoryFilePath
+	 * @param repositoryName
+	 * @return
+	 * @throws Exception
+	 */
+	public static String createOptionTagXpathObjects(String repositoryFilePath, String repositoryName)
+			throws Exception {
+		setExcelFile(repositoryFilePath, "DropDownOptionLocators");
+		String objectName = null;
+		for (int i = 1; i <= 1000; i++) {
+
+			// Attribute matching and get the object and object name
+			if (!getCellData("Loc1", i).equals("") || !getCellData("Loc2", i).equals("")) {
+
+				String extractedText;
+				if (!getCellData("Loc1", i).equals("")) {
+					seleniumLocator = "//select//option[@" + getCellData("Loc1", i) + "]";
+					String[] parts = getCellData("Loc1", i).split("=");
+					extractedText = parts[1].replaceAll("[^a-zA-Z0-9]", "");
+				} else if (!getCellData("Loc2", i).equals("")) {
+					seleniumLocator = "//select//option[@" + getCellData("Loc2", i) + "]";
+					extractedText = getCellData("Loc2", i).replaceAll("[^a-zA-Z0-9]", "");
+				} else {
+					seleniumLocator = "//select//option[@" + getCellData("Loc1", i) + " or @" + getCellData("Loc2", i)
+							+ "]";
+					extractedText = getCellData("Loc2", i).replaceAll("[^a-zA-Z0-9]", "");
+				}
+				String firstLetter = extractedText.substring(0, 1).toLowerCase();
+				String restOfString = extractedText.substring(1);
+				String finalText = firstLetter + restOfString;
+				objectName = finalText;
+				WebInspectUtilities.createJavaFile(repositoryName, "ddl_option_" + objectName, seleniumLocator);
 			}
 		}
 		return seleniumLocator;
@@ -259,7 +348,7 @@ public class LocatorsPattern {
 	 * class
 	 * 
 	 * @author sanoj.swaminathan
-	 * @since 27-07-2023
+	 * @since 18-08-2023
 	 * @param repositoryFilePath
 	 * @param repositoryName
 	 * @return
@@ -270,29 +359,49 @@ public class LocatorsPattern {
 		setExcelFile(repositoryFilePath, "ButtonLocators");
 		String objectName = null;
 		for (int i = 1; i <= 1000; i++) {
-			seleniumLocator = "//*[" + "@" + getCellData("Loc1", i) + "]";
-			if (!seleniumLocator.contains("type='hidden'")) {
-				if (!getCellData("Loc1", i).equals("")) {
-					for (int j = 1; j <= 4; j++) {
-						// Attribute matching and get the object name
-						if (getCellData("Loc" + j, i).startsWith("placeholder=")
-								|| getCellData("Loc" + j, i).startsWith("name=")
-								|| getCellData("Loc" + j, i).startsWith("value=")) {
-							String[] parts = getCellData("Loc" + j, i).split("=");
-							String extractedText = parts[1].replaceAll("[^a-zA-Z0-9]", "");
-							String firstLetter = extractedText.substring(0, 1).toLowerCase();
-							String restOfString = extractedText.substring(1);
-							String finalText = firstLetter + restOfString;
-							objectName = finalText;
-							break;
-						}
-					}
 
-					if (objectName == null) {
-						objectName = "btn_objectName" + i;
-					}
-					WebInspectUtilities.createJavaFile(repositoryName, "btn_" + objectName, seleniumLocator);
+			// Attribute matching and get the object and object name
+			if (!getCellData("Loc1", i).equals("") || !getCellData("Loc2", i).equals("")
+					|| !getCellData("Loc3", i).equals("") || !getCellData("Loc4", i).equals("")) {
+
+				String extractedText;
+				if (!getCellData("Loc1", i).equals("") && !getCellData("Loc2", i).equals("")) {
+					seleniumLocator = "//button[text()='" + getCellData("Loc1", i) + "' or @" + getCellData("Loc2", i)
+							+ "]";
+					extractedText = getCellData("Loc1", i).replaceAll("[^a-zA-Z0-9]", "");
+				} else if (!getCellData("Loc1", i).equals("") && !getCellData("Loc3", i).equals("")) {
+					seleniumLocator = "//button[text()='" + getCellData("Loc1", i) + "' or @" + getCellData("Loc3", i)
+							+ "]";
+					extractedText = getCellData("Loc1", i).replaceAll("[^a-zA-Z0-9]", "");
+				} else if (!getCellData("Loc1", i).equals("") && !getCellData("Loc4", i).equals("")) {
+					seleniumLocator = "//button[text()='" + getCellData("Loc1", i) + "' or @" + getCellData("Loc4", i)
+							+ "]";
+					extractedText = getCellData("Loc1", i).replaceAll("[^a-zA-Z0-9]", "");
+
+				} else if (!getCellData("Loc2", i).equals("") && !getCellData("Loc3", i).equals("")) {
+					seleniumLocator = "//button[@" + getCellData("Loc2", i) + " or @" + getCellData("Loc3", i) + "]";
+					String[] parts = getCellData("Loc2", i).split("=");
+					extractedText = parts[1].replaceAll("[^a-zA-Z0-9]", "");
+				} else if (!getCellData("Loc2", i).equals("") && !getCellData("Loc4", i).equals("")) {
+					seleniumLocator = "//button[@" + getCellData("Loc2", i) + " or @" + getCellData("Loc4", i) + "]";
+					String[] parts = getCellData("Loc2", i).split("=");
+					extractedText = parts[1].replaceAll("[^a-zA-Z0-9]", "");
+				} else {
+					seleniumLocator = "//button[text()='" + getCellData("Loc1", i) + "' or @" + getCellData("Loc2", i)
+							+ " or @" + getCellData("Loc3", i) + " or @" + getCellData("Loc4", i) + "]";
+					extractedText = getCellData("Loc1", i).replaceAll("[^a-zA-Z0-9]", "");
 				}
+
+				if (!extractedText.equals("")) {
+					String firstLetter = extractedText.substring(0, 1).toLowerCase();
+					String restOfString = extractedText.substring(1);
+					String finalText = firstLetter + restOfString;
+					objectName = finalText;
+				} else {
+					objectName = "objectName" + i;
+				}
+
+				WebInspectUtilities.createJavaFile(repositoryName, "btn_" + objectName, seleniumLocator);
 			}
 		}
 		return seleniumLocator;
