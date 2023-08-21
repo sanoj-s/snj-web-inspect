@@ -455,10 +455,14 @@ public class LocatorsPattern {
 					extractedText = getCellData("Loc1", i).replaceAll("[^a-zA-Z0-9]", "");
 				}
 
-				String firstLetter = extractedText.substring(0, 1).toLowerCase();
-				String restOfString = extractedText.substring(1);
-				String finalText = firstLetter + restOfString;
-				objectName = finalText;
+				if (!extractedText.equals("")) {
+					String firstLetter = extractedText.substring(0, 1).toLowerCase();
+					String restOfString = extractedText.substring(1);
+					String finalText = firstLetter + restOfString;
+					objectName = finalText;
+				} else {
+					objectName = "objectName" + i;
+				}
 
 				WebInspectUtilities.createJavaFile(repositoryName, "lnk_" + objectName, seleniumLocator);
 			}
